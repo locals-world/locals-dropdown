@@ -11,7 +11,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-dropdown/iron-dropdown.html">
 <link rel="import" href="../locals-button/locals-button.html">
-<link rel="import" href="../iron-selector/iron-selector.html">
 <link rel="import" href="../locals-menu/locals-menu.html">
 <link rel="import" href="../locals-style/locals-style.html">
 
@@ -66,7 +65,7 @@ Example:
 
 
     <locals-button on-tap="toggle" class="bold">
-        <content select=".dropdown-trigger">{{selected}}</content>
+        <content select=".dropdown-trigger">{{selecteditem}}</content>
     </locals-button>
 
      <iron-dropdown id="dropdown"
@@ -75,7 +74,7 @@ Example:
       disabled="[[disabled]]"
       open-animation-config="[[openAnimationConfig]]"
       close-animation-config="[[closeAnimationConfig]]">
-        <locals-menu class="dropdown-content" id="menu" selected="{{selected}}" attr-for-selected="[[attrforselected]]" on-tap="toggle">
+        <locals-menu class="dropdown-content" id="menu" selected="{{selecteditem}}" attr-for-selected="[[attrselected]]" on-tap="toggle">
           <content ></content>
         </locals-menu>
       </iron-dropdown>
@@ -88,8 +87,8 @@ Example:
 
       properties: {
 
-        selected: {
-          observer:'_selected'
+        selecteditem: {
+          observer:'_selecteditem'
         },
 
       openAnimationConfig: {
@@ -160,8 +159,8 @@ Example:
         this.$.dropdown.close();
       },
 
-      _selected: function(){
-        // console.log('*********',this.selected);
+      _selecteditem: function(){
+        console.log('*********',this.selecteditem);
       },
 
 
