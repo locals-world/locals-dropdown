@@ -12,6 +12,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../iron-dropdown/iron-dropdown.html">
 <link rel="import" href="../locals-button/locals-button.html">
 <link rel="import" href="../iron-selector/iron-selector.html">
+<link rel="import" href="../locals-menu/locals-menu.html">
+<link rel="import" href="../locals-style/locals-style.html">
 
 <link rel="import" href="../neon-animation/neon-animations.html">
 <link rel="import" href="../iron-dropdown/demo/grow-height-animation.html">
@@ -41,18 +43,30 @@ Example:
         box-sizing: border-box;
       }
 
-      .dropdown-content {
-/*        background-color: red;*/
-        width: 100px;
+/*      .dropdown-content {
+        width: inherit;
+      }*/
+
+      #menu {
+        min-width:160px; 
+        background-color: white;
+        box-sizing: border-box;
+        padding: 18px 24px 18px 24px;
+        border-top: 1px solid rgba(0,0,0,0.1);
+        border-right: 2px solid rgba(0,0,0,0.2);
+        border-bottom: 2px solid rgba(0,0,0,0.2);
+        border-left: 1px solid rgba(0,0,0,0.1);
       }
 
-      .iron-selected {
-        color: red;
+      .bold {
+        @apply(--opensans-semibold);
       }
+
     </style>
 
-    <locals-button on-tap="open">
-        <content select=".dropdown-trigger"></content>
+
+    <locals-button on-tap="toggle" class="bold">
+        <content select=".dropdown-trigger">{{selected}}</content>
     </locals-button>
 
      <iron-dropdown id="dropdown"
@@ -61,16 +75,9 @@ Example:
       disabled="[[disabled]]"
       open-animation-config="[[openAnimationConfig]]"
       close-animation-config="[[closeAnimationConfig]]">
-
-        <div class="dropdown-content">
-
-<!--         <iron-selector selected="{{selecteditem}}" attr-for-selected="key">
-        <h1 key="1">1</h1>
-        <h1 key="2">2</h1> -->
-
-<!--         <content select=".dropdown-content"></content> -->
-<!--         </iron-selector> -->
-        </div>
+        <locals-menu class="dropdown-content" id="menu" selected="{{selected}}" attr-for-selected="[[attrforselected]]" on-tap="toggle">
+          <content ></content>
+        </locals-menu>
       </iron-dropdown>
 
   </template>
@@ -80,6 +87,11 @@ Example:
       is: 'locals-dropdown',
 
       properties: {
+
+        selected: {
+          observer:'_selected'
+        },
+
       openAnimationConfig: {
           type: Array,
           value: function() {
@@ -105,7 +117,7 @@ Example:
             return [{
               name: 'fade-out-animation',
               timing: {
-                duration: 200
+                duration: 100
               }
             }];
           }
@@ -114,8 +126,8 @@ Example:
 
       // Element Lifecycle
 
-      ready: function() {
-        this.selecteditem = 1;
+      ready: function() {        
+        // this.menusel = 1;
         // `ready` is called after all elements have been configured, but
         // propagates bottom-up. This element's children are ready, but parents
         // are not.
@@ -125,6 +137,7 @@ Example:
       },
 
       attached: function() {
+
         // `attached` fires once the element and its parents have been inserted
         // into a document.
         //
@@ -140,12 +153,16 @@ Example:
         // Use this to clean up anything you did in `attached`.
       },
 
-      open: function() {
-        this.$.dropdown.open();
+      toggle: function() {
+        this.$.dropdown.toggle();
       },
       close: function() {
         this.$.dropdown.close();
-      }
+      },
+
+      _selected: function(){
+        // console.log('*********',this.selected);
+      },
 
 
     });

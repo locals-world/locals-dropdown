@@ -16,21 +16,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import" href="../locals-dropdown.html">
     <link rel="import" href="../../locals-menu/locals-menu.html">
+    <link rel="import" href="../../locals-item/locals-item.html">
     <link rel="import" href="../../iron-selector/iron-selector.html">
+
 
   </head>
   <body unresolved>
-
-<!--     <locals-dropdown>
- --><h1>{{selecteditem}}</h1>    
-        <iron-selector selected="{{selecteditem}}" attr-for-selected="key">
-        <div key="1">1</div>
-        <div key="2">2</div>
-        </iron-selector>
-<!--     </locals-dropdown> -->
-
+    <locals-dropdown attrforselected="key" selected="Optie 1">
+      <locals-item key="Optie 1">Optie 1</locals-item>
+      <locals-item key="Optie 2">Optie 2</locals-item>
+      <locals-item key="Optie 3">Optie 3</locals-item>
+      <locals-item key="Optie 4">Optie 4</locals-item>
+      <locals-item key="Optie 5">Optie 5</locals-item>
+      <locals-item key="Optie 6">Optie 6</locals-item>
+    </locals-dropdown>
     <script>
-      // var seedElement = document.querySelector('locals-dropdown');
+      // var app = document.querySelector('#app');
+      // console.log(app);
+      // app.selecteditem = "Ben";
 
       // document.querySelector('#saybtn').addEventListener('click', function() {
       //   alert(seedElement.sayHello('Hallo!'));
